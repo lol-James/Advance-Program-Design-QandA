@@ -25,7 +25,6 @@ int main()
         cout << x_sum << " " << y_sum << endl;
     }
 
-    system("pause");
     return 0;
 }
 
