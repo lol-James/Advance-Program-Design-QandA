@@ -1,12 +1,30 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
+/*
+0 0 4 1
+-20 -50 64 5
+*/
+
 double sum_x, sum_y;
+
+inline void sum(double a1, int x, double &sum)
+{
+    sum += a1 * (pow(4, x + 1) - 1) / 3 - a1;
+}
 
 void calcCoords(int x, double a, double b, double d)
 {
     if (x == 0 || a + d < 0 || b + d < 0)
         return;
+
+    if (a - d >= 0 && b - d >= 0)
+    {
+        sum(a, x, sum_x);
+        sum(b, x, sum_y);
+        return;
+    }
 
     double dist = d / 2.0;
 
@@ -14,6 +32,9 @@ void calcCoords(int x, double a, double b, double d)
     double x2 = a + dist, y2 = b - dist;
     double x3 = a - dist, y3 = b + dist;
     double x4 = a + dist, y4 = b + dist;
+
+    if (x4 + dist < 0 || y4 + dist < 0)
+        return;
 
     if (x1 > 0 && y1 > 0)
     {
