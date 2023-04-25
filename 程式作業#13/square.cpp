@@ -42,6 +42,9 @@ inline void find_vertices(double a, double b, double d, double square[][2])
 
 inline void draw(double a, double b, double d, double x)
 {
+    if (!d) 
+        return;
+
     double square[4][2];
 
     find_vertices(a, b, d, square);
