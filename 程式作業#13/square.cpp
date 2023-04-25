@@ -6,7 +6,6 @@ double x_sum = 0, y_sum = 0;
 
 inline void find_vertices(double a, double b, double d, double square[][2]);
 inline void draw(double a, double b, double d, double x);
-inline double G_sum(double a1, double n);
 
 int main()
 {
