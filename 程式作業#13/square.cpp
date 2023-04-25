@@ -1,83 +1,71 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
-double x_sum = 0, y_sum = 0;
+double sum_x, sum_y;
 
-inline void find_vertices(double a, double b, double d, double square[][2]);
-inline void draw(double a, double b, double d, double x);
+void calcCoords(int x, double a, double b, double d)
+{
+    if (x == 0 || a + d < 0 || b + d < 0)
+        return;
+
+    double dist = d / 2.0;
+
+    double x1 = a - dist, y1 = b - dist;
+    double x2 = a + dist, y2 = b - dist;
+    double x3 = a - dist, y3 = b + dist;
+    double x4 = a + dist, y4 = b + dist;
+
+    if (x1 > 0 && y1 > 0)
+    {
+        sum_x += x1;
+        sum_y += y1;
+    }
+    if (x2 > 0 && y2 > 0)
+    {
+        sum_x += x2;
+        sum_y += y2;
+    }
+    if (x3 > 0 && y3 > 0)
+    {
+        sum_x += x3;
+        sum_y += y3;
+    }
+    if (x4 > 0 && y4 > 0)
+    {
+        sum_x += x4;
+        sum_y += y4;
+    }
+
+    calcCoords(x - 1, x1, y1, d / 2.0);
+    calcCoords(x - 1, x2, y2, d / 2.0);
+    calcCoords(x - 1, x3, y3, d / 2.0);
+    calcCoords(x - 1, x4, y4, d / 2.0);
+}
 
 int main()
 {
-    double a, b, d, x;
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+
+    double a, b, d;
+    int x;
+
     while (cin >> a >> b >> d >> x)
     {
-        x_sum = y_sum = 0;
+        x++;
 
         if (a > 0 && b > 0)
         {
-            x_sum += a;
-            y_sum += b;
+            sum_x = a;
+            sum_y = b;
         }
+        else
+            sum_x = sum_y = 0;
 
-        draw(a, b, d, x);
+        calcCoords(x, a, b, d);
 
-        cout << x_sum << " " << y_sum << endl;
+        cout << sum_x << " " << sum_y << endl;
     }
 
     return 0;
-}
-
-inline void find_vertices(double a, double b, double d, double square[][2])
-{
-    square[0][0] = a + d / 2;
-    square[0][1] = b + d / 2;
-    square[1][0] = a - d / 2;
-    square[1][1] = b + d / 2;
-    square[2][0] = a - d / 2;
-    square[2][1] = b - d / 2;
-    square[3][0] = a + d / 2;
-    square[3][1] = b - d / 2;
-}
-
-inline void draw(double a, double b, double d, double x)
-{
-    if (!d) 
-        return;
-
-    double square[4][2];
-
-    find_vertices(a, b, d, square);
-
-    for (int i = 0; i < 4; i++)
-    {
-        if (square[i][0] > 0 && square[i][1] > 0)
-        {
-            x_sum += square[i][0];
-            y_sum += square[i][1];
-        }
-    }
-
-    if (x)
-    {
-        if (a + d < 0 && b + d < 0)
-            return;
-        else
-            draw(a + d / 2, b + d / 2, d / 2, x - 1);
-
-        if (a < 0 && b + d < 0)
-            return;
-        else
-            draw(a - d / 2, b + d / 2, d / 2, x - 1);
-
-        if (a < 0 && b < 0)
-            return;
-        else
-            draw(a - d / 2, b - d / 2, d / 2, x - 1);
-
-        if (a + d < 0 && b < 0)
-            return;
-        else
-            draw(a + d / 2, b - d / 2, d / 2, x - 1);
-    }
 }
