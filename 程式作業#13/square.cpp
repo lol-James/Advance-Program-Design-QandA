@@ -21,6 +21,9 @@ void calcCoords(int x, double a, double b, double d)
         return;
     }
 
+    if (a + d < 0 || b + d < 0)
+        return;
+
     double dist = d / 2.0;
     double x1 = a - dist, y1 = b - dist;
     double x2 = a + dist, y2 = b - dist;
@@ -37,11 +40,11 @@ void calcCoords(int x, double a, double b, double d)
         sum_x += x2;
         sum_y += y2;
     }
-    if (x3 > 0 && y3 > 0)
-    {
-        sum_x += x3;
-        sum_y += y3;
-    }
+    if (x3 > 0 && y3 > 0) 
+    { 
+        sum_x += x3; 
+        sum_y += y3; 
+    } 
     if (x4 > 0 && y4 > 0)
     {
         sum_x += x4;
@@ -49,16 +52,16 @@ void calcCoords(int x, double a, double b, double d)
     }
 
     if (x1 + dist > 0 || y1 + dist > 0)
-        calcCoords(x - 1, x1, y1, d / 2.0);
+        calcCoords(x - 1, x1, y1, dist);
 
     if (x2 + dist > 0 || y2 + dist > 0)
-        calcCoords(x - 1, x2, y2, d / 2.0);
+        calcCoords(x - 1, x2, y2, dist);
 
     if (x3 + dist > 0 || y3 + dist > 0)
-        calcCoords(x - 1, x3, y3, d / 2.0);
+        calcCoords(x - 1, x3, y3, dist);
 
     if (x4 + dist > 0 || y4 + dist > 0)
-        calcCoords(x - 1, x4, y4, d / 2.0);
+        calcCoords(x - 1, x4, y4, dist);
 }
 
 int main()
@@ -83,7 +86,7 @@ int main()
 
         calcCoords(x, a, b, d);
 
-        cout << sum_x << " " << sum_y << endl;
+        cout << sum_x << " " << sum_y << "\n";
     }
 
     return 0;
