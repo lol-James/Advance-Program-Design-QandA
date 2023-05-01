@@ -16,14 +16,12 @@ int main()
     {
         if (a + d <= 0 || b + d <= 0)
         {
-            cout << "0 0" << endl;
+            cout << "0 0\n";
             continue;
         }
 
         queue<pair<double, double>> q;
-
         q.push({a, b});
-
         if (a > 0 && b > 0)
         {
             ans1 += a;
@@ -59,7 +57,7 @@ int main()
                     ans2 = ans2 + sum(y[k], N + 2) - y[k];
                     continue;
                 }
-                if (x[k] + 2.0 * d <= 0 || y[k] + 2.0 * d <= 0) // 一定不可能跑到(I)
+                if (x[k] + 2.0 * d <= 0 || y[k] + 2.0 * d <= 0) // 一定不可能跑到(I)了
                     continue;
 
                 for (int j = 0; j < 4; j++)
@@ -75,7 +73,6 @@ int main()
                 }
             }
         }
-
         cout << ans1 << " " << ans2 << endl;
     }
 
