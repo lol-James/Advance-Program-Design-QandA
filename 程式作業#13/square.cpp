@@ -2,92 +2,83 @@
 
 using namespace std;
 
-/*
-0 0 4 1
--20 -50 64 5
-*/
+inline double sum(double a, double n) { return (a * (pow(4, n) - 1)) / 3.0; }
 
-double sum_x, sum_y;
-
-void calcCoords(int x, double a, double b, double d)
-{
-    if (x == 0 || d == 0 || a + d < 0 || b + d < 0)
-        return;
-
-    if (a - d >= 0 && b - d >= 0)
-    {
-        sum_x += a * (pow(4, x + 1) - 1) / 3 - a;
-        sum_y += b * (pow(4, x + 1) - 1) / 3 - b;
-        return;
-    }
-
-    if (a + d < 0 || b + d < 0)
-        return;
-
-    double dist = d / 2.0;
-    double x1 = a - dist, y1 = b - dist;
-    double x2 = a + dist, y2 = b - dist;
-    double x3 = a - dist, y3 = b + dist;
-    double x4 = a + dist, y4 = b + dist;
-
-    if (x1 > 0 && y1 > 0)
-    {
-        sum_x += x1;
-        sum_y += y1;
-    }
-    if (x2 > 0 && y2 > 0)
-    {
-        sum_x += x2;
-        sum_y += y2;
-    }
-    if (x3 > 0 && y3 > 0) 
-    { 
-        sum_x += x3; 
-        sum_y += y3; 
-    } 
-    if (x4 > 0 && y4 > 0)
-    {
-        sum_x += x4;
-        sum_y += y4;
-    }
-
-    if (x1 + dist > 0 || y1 + dist > 0)
-        calcCoords(x - 1, x1, y1, dist);
-
-    if (x2 + dist > 0 || y2 + dist > 0)
-        calcCoords(x - 1, x2, y2, dist);
-
-    if (x3 + dist > 0 || y3 + dist > 0)
-        calcCoords(x - 1, x3, y3, dist);
-
-    if (x4 + dist > 0 || y4 + dist > 0)
-        calcCoords(x - 1, x4, y4, dist);
-}
+// 依照4個方向展開的正負號
+const double dx[4] = {1, -1, -1, 1};
+const double dy[4] = {1, 1, -1, -1};
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+    double a, b, d, N, x1, y1, n, ans1, ans2;
 
-    double a, b, d;
-    int x;
-
-    while (cin >> a >> b >> d >> x)
+    while (cin >> a >> b >> d >> N)
     {
-        x++;
+        if (a + d <= 0 || b + d <= 0)
+        {
+            cout << "0 0" << endl;
+            continue;
+        }
+
+        queue<pair<double, double>> q;
+
+        q.push({a, b});
 
         if (a > 0 && b > 0)
         {
-            sum_x = a;
-            sum_y = b;
+            ans1 += a;
+            ans2 += b;
         }
         else
-            sum_x = sum_y = 0;
+        {
+            ans1 = 0;
+            ans2 = 0;
+        }
 
-        calcCoords(x, a, b, d);
+        N++;
+        while (N--)
+        {
+            d /= 2.0;
 
-        cout << sum_x << " " << sum_y << "\n";
+            vector<double> x;
+            vector<double> y;
+
+            while (!q.empty()) // 從queue取坐標出來
+            {
+                x.push_back(q.front().first);
+                y.push_back(q.front().second);
+                q.pop();
+            }
+
+            n = x.size();
+            for (int k = 0; k < n; k++)
+            {
+                if (x[k] - 2.0 * d >= 0 && y[k] - 2.0 * d >= 0)
+                {
+                    ans1 = ans1 + sum(x[k], N + 2) - x[k]; // 避免重複計算 所以要 - x[k]
+                    ans2 = ans2 + sum(y[k], N + 2) - y[k];
+                    continue;
+                }
+                if (x[k] + 2.0 * d <= 0 || y[k] + 2.0 * d <= 0) // 一定不可能跑到(I)
+                    continue;
+
+                for (int j = 0; j < 4; j++)
+                {
+                    x1 = (x[k] + dx[j] * d);
+                    y1 = (y[k] + dy[j] * d);
+                    if (x1 > 0 && y1 > 0)
+                    {
+                        ans1 += x1;
+                        ans2 += y1;
+                    }
+                    q.push({x1, y1});
+                }
+            }
+        }
+
+        cout << ans1 << " " << ans2 << endl;
     }
 
+    system("pause");
     return 0;
 }
