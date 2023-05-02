@@ -24,14 +24,14 @@ int main()
         unsigned int dp_max[m][m], dp_min[m][m];
         for (int i = 0; i < m; i++)
         {
-            for (int j = i + 1; j < m; j++)
+            for (int j = i; j < m; j++)
             {
                 dp_max[i][j] = 0;
                 dp_min[i][j] = 0xffffffff;
             }
         }
 
-        for (int delta = 1; delta <= m - 2; ++delta)
+        for (int delta = 1; delta <= m - 1; ++delta)
         {
             for (int i = 0; i < m - delta; ++i)
             {
