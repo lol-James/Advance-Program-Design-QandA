@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 bool compare(pair<int, int> upper, pair<int, int> lower)
@@ -19,7 +18,7 @@ int main()
             cin >> data[i].second;
         sort(data.begin(), data.end(), compare);
         cost = total_weight = 0;
-        for (i = 0; i < n - 1; i++)
+        for (i = 0; i < n - 1; i++) // 由上往下計算總成本
         {
             total_weight += data[i].first;
             cost += data[i + 1].second * total_weight;
