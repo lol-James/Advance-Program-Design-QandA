@@ -7,8 +7,8 @@ using namespace std;
  * int dp_max[n][n] // A[i] 到 A[j]的最大效益
  * if j-i < 2 : dp_max[i][j] = 0
  * else : dp_max[i][j] = max{dp_max[i][x] + dp_max[x][j] + A[i]*A[x]*A[j], ∀ i+1 <= x <= j-1}
- * 所求max即為dp[0][n-1]
- **/
+ * 所求max即為dp[0][n-1] 
+**/
 
 int main()
 {
@@ -23,11 +23,13 @@ int main()
 
         unsigned int dp_max[m][m], dp_min[m][m];
         for (int i = 0; i < m; i++) // 初始化
+        {
             for (int j = i; j < m; j++)
             {
                 dp_max[i][j] = 0;
                 dp_min[i][j] = 0xffffffff;
             }
+        }
 
         for (int delta = 1; delta <= m - 1; ++delta) // delta = j - i
         {

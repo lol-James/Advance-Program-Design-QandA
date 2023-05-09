@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 inline double sum(double a, double n) { return (a * (pow(4, n) - 1)) / 3.0; }
