@@ -1,14 +1,12 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
-bool compare(pair<int, int> upper, pair<int, int> lower)
-{
-    return upper.first * lower.second < lower.first * upper.second;
-}
+bool compare(pair<int, int> upper, pair<int, int> lower) { return upper.first * lower.second < lower.first * upper.second; }
 
 int main()
 {
-    unsigned long long n, cost, total_weight, i;
+    long long n, cost, total_weight, i;
     while (cin >> n)
     {
         vector<pair<int, int>> data(n); // <w, f>
