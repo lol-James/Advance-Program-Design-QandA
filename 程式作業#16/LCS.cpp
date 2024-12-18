@@ -16,7 +16,9 @@ int main()
         for (int i = 0; i < m; i++)
             a[i][0] = (s2[i] == s1[0]) ? s1[0] : '0';
         for (int i = 1; i < m; i++)
+        {
             for (int j = 1; j < n; j++)
+            {
                 if (s2[i] == s1[j])
                 {
                     a[i][j] = a[i - 1][j - 1] + s1[j];
@@ -30,7 +32,18 @@ int main()
                     else
                         a[i][j] = stoull(a[i][j - 1]) < stoull(a[i - 1][j]) ? a[i - 1][j] : a[i][j - 1];
                 }
-
+            }
+        }
+        /*       
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                cout << setw(8) << left << a[i][j];
+            }
+            cout << endl;
+        } 
+        */
         cout << stoull(a[m - 1][n - 1]) << endl;
     }
 

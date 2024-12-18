@@ -18,8 +18,7 @@ int main()
     {
         cin >> m;
         int A[m];
-        for (int i = 0; i < m; ++i)
-            cin >> A[i];
+        for (int i = 0; i < m; ++i) cin >> A[i];
 
         unsigned int dp_max[m][m], dp_min[m][m];
         for (int i = 0; i < m; i++) // 初始化
@@ -46,6 +45,25 @@ int main()
                     dp_max[i][j] = dp_min[i][j] = 0;
             }
         }
+        /*
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                cout << setw(20) << left << dp_max[i][j];
+            }
+            cout << endl;
+        }
+        cout << endl;
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                cout << setw(20) << left << dp_min[i][j];
+            }
+            cout << endl;
+        }
+        */
         cout << dp_max[0][m - 1] << " " << dp_min[0][m - 1] << "\n";
     }
 
